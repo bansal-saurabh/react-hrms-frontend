@@ -27,7 +27,7 @@ export const getFirst = async () => (
 );
 
 export const register = async (name, email, password, phone, agency, role) => (
-    await instance.post('users/register', {name, email, password, phone, agency, role})
+    await instance.post('users/register', { name, email, password, phone, agency, role })
 );
 
 export const confirmRegister = async id => (
@@ -35,21 +35,24 @@ export const confirmRegister = async id => (
 );
 
 export const forgotPassword = async email => (
-    await instance.post('users/forgotpassword', {email})
+    await instance.post('users/forgotpassword', { email })
 );
 
 export const confirmReset = async (id, password) => (
-    await instance.post(`users/resetpass/${id}`, {password})
+    await instance.post(`users/resetpass/${id}`, { password })
 );
 
 export const login = async (email, password) => (
-    await instance.post('users/login', {email, password})
+    await instance.post('auth/local', {
+        identifier: email ,
+        password: password,
+    })
 );
 
 export const logout = async token => (
-    await instance.post('users/logout', {token})
+    await instance.post('users/logout', { token })
 );
 
 export const edit = async (userID, name, email) => (
-    await instance.post('/users/edit', {userID, name, email})
+    await instance.post('/users/edit', { userID, name, email })
 );

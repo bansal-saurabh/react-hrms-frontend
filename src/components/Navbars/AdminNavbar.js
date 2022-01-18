@@ -15,6 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import React from "react";
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -34,7 +35,25 @@ import {
   Media,
 } from "reactstrap";
 
+// import { logout } from "../../network/ApiAxios";
+
 const AdminNavbar = (props) => {
+
+  let username = JSON.parse(localStorage.getItem("user")).username;
+
+  const logOut = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      // const response = await logout(token);
+      // const { data } = response;
+      // if (data.success) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      props.history.push("/auth/login");
+      // }
+    }
+  }
+
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -72,7 +91,7 @@ const AdminNavbar = (props) => {
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      Saurabh Bansal
+                    {username}
                     </span>
                   </Media>
                 </Media>
@@ -98,7 +117,7 @@ const AdminNavbar = (props) => {
                   <span>Support</span>
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                <DropdownItem href="#pablo" onClick={logOut}>
                   <i className="ni ni-user-run" />
                   <span>Logout</span>
                 </DropdownItem>
